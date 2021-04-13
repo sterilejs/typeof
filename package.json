@@ -1,0 +1,12 @@
+{
+    "name": "typeof.js",
+    "version": "1.0.0",
+    "description": "Extended typeof operator for more control over your types.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "im-lonely <cursors.dev@gmail.com>",
+    "license": "MIT"
+}
