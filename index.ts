@@ -1,7 +1,11 @@
 const typeOf: (value: any) => string = new Proxy(
     (value) => {
         if (Array.isArray(value)) {
-            const types = [...new Set(value.map((e) => typeOf(e)))].sort();
+            if (Object.isSealed(value) && value.length) {
+                return `[${value.map(typeOf).join(", ")}]`;
+            }
+
+            const types = [...new Set(value.map(typeOf))].sort();
 
             if (types.length === 0) return `never[]`;
 
@@ -42,23 +46,3 @@ const typeOf: (value: any) => string = new Proxy(
 export default typeOf;
 
 module.exports = typeOf;
-
-console.log(typeOf({}));
-console.log(typeOf(0));
-console.log(typeOf(""));
-console.log(typeOf({ hello: "world" }));
-console.log(typeOf({ hello: "world", world: { answer: 42, people: [] } }));
-console.log(typeOf(new (class Person {})()));
-console.log(typeOf(null));
-console.log(typeOf(undefined));
-console.log(typeOf([]));
-console.log(typeOf([1, 2, 3]));
-console.log(typeOf(["", ""]));
-console.log(typeOf(["", 0]));
-console.log(typeOf(["", [0]]));
-console.log(typeOf([[{ hello: "world" }]]));
-console.log(typeOf([[""]]));
-console.log(typeOf(Object.freeze({})));
-console.log(typeOf(Object.freeze([])));
-console.log(typeOf(Object.freeze([1, 2, 3])));
-console.log(typeOf(Object.freeze({ hello: "world" })));

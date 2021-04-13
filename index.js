@@ -23,7 +23,10 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeOf = new Proxy(function (value) {
     if (Array.isArray(value)) {
-        var types = __spreadArray([], __read(new Set(value.map(function (e) { return typeOf(e); })))).sort();
+        if (Object.isSealed(value) && value.length) {
+            return "[" + value.map(typeOf).join(", ") + "]";
+        }
+        var types = __spreadArray([], __read(new Set(value.map(typeOf)))).sort();
         if (types.length === 0)
             return "never[]";
         if (types.length === 1 && !types[0].startsWith("readonly"))

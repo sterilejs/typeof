@@ -1,11 +1,11 @@
-# typeof.js
+# @sterile/typeof
 
 **Extended typeof operator for more control over your types.**
 
 Examples:
 
 ```ts
-import typeOf from "typeof.js";
+import typeOf from "@sterile/typeof";
 
 typeOf({}); // {}
 
@@ -27,6 +27,10 @@ typeOf([]); // never[]
 
 typeOf([1, 2, 3]); // number[]
 
+typeOf(["", undefined]); // string?[]
+
+typeOf(["", 1, undefined]); // (number | string | undefined)[]
+
 typeOf(["", ""]); // string[]
 
 typeOf(["", 0]); // (number | string)[]
@@ -36,6 +40,14 @@ typeOf(["", [0]]); // (number[] | string)[]
 typeOf([[{ hello: "world" }]]); // { hello: string }[][]
 
 typeOf([[""]]); // string[][]
+
+typeOf(Object.seal([])); // readonly never[]
+
+typeOf(Object.seal([""])); // [string]
+
+typeOf(Object.seal([1, "", {}])); // [number, string, {}]
+
+typeOf(Object.seal({})); // readonly {}
 
 typeOf(Object.freeze({})); // readonly {}
 

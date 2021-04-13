@@ -1,5 +1,5 @@
 {
-    "name": "typeof.js",
+    "name": "@sterile/typeof",
     "version": "1.0.0",
     "description": "Extended typeof operator for more control over your types.",
     "main": "index.js",
